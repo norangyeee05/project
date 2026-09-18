@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobility - 관리자 대시보드</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<main class="container">
+    <h2 class="mb-4">관리자 대시보드</h2>
+
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="card text-center p-4">
+                <div class="text-muted mb-2">전체 회원 수</div>
+                <div class="display-6 fw-bold" th:text="${totalMembers}">0</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center p-4">
+                <div class="text-muted mb-2">일반 회원 (USER)</div>
+                <div class="display-6 fw-bold text-primary" th:text="${totalUsers}">0</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center p-4">
+                <div class="text-muted mb-2">관리자 (ADMIN)</div>
+                <div class="display-6 fw-bold text-danger" th:text="${totalAdmins}">0</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3 mt-1">
+        <div class="col-md-6">
+            <a th:href="@{/admin/members}" class="btn btn-outline-primary w-100 py-3">👥 회원 관리</a>
+        </div>
+        <div class="col-md-6">
+            <a th:href="@{/admin/boards}" class="btn btn-outline-secondary w-100 py-3">📋 게시글 관리</a>
+        </div>
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

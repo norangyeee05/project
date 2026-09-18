@@ -2,7 +2,7 @@ package com.project.mobility.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,9 +38,17 @@ public class Member {
     @Builder.Default
     private Role role = Role.USER;
 
+    @Column
+    private LocalDateTime createdAt;
+
     @Column(nullable = false)
     @Builder.Default
     private boolean enabled = true;
+
+    @PrePersist
+    public void perCreated() {
+        createdAt = LocalDateTime.now();
+    }
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     @Builder.Default

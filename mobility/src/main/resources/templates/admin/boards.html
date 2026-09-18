@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobility - 게시글 관리</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<main class="container">
+    <h2 class="mb-4">게시글 관리</h2>
+
+    <form th:action="@{/admin/boards}" method="get" class="row g-2 mb-3">
+        <div class="col-auto">
+            <input type="text" name="keyword" th:value="${param.keyword}" class="form-control"
+                   placeholder="제목 / 내용 / 작성자 검색">
+        </div>
+        <div class="col-auto">
+            <input type="text" name="userid" th:value="${param.userid}" class="form-control"
+                   placeholder="작성자 아이디">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-outline-primary">검색</button>
+        </div>
+    </form>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+            <tr>
+                <th>ID</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>조회수</th>
+                <th>작성일</th>
+                <th>관리</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="b : ${boards.content}">
+                <td th:text="${b.id}">1</td>
+                <td>
+                    <a th:href="@{'/admin/boards/detail/' + ${b.id}}" th:text="${b.title}"
+                       class="text-decoration-none">제목</a>
+                </td>
+                <td th:text="${b.member.userid}">userid</td>
+                <td th:text="${b.hits}">0</td>
+                <td th:text="${#temporals.format(b.createdAt, 'yyyy-MM-dd HH:mm')}">2026-01-01</td>
+                <td>
+                    <div class="d-flex gap-1">
+                        <a th:href="@{'/admin/boards/edit/' + ${b.id}}" class="btn btn-sm btn-outline-secondary">수정</a>
+                        <form th:action="@{'/admin/boards/del/' + ${b.id}}" method="post"
+                              onsubmit="return confirm('정말 삭제하시겠습니까?');">
+                            <button type="submit" class="btn btn-sm btn-outline-danger">삭제</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            <tr th:if="${boards.empty}">
+                <td colspan="6" class="text-center text-muted py-4">게시글이 없습니다.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <nav th:if="${boards.totalPages > 1}">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${boards.first} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/admin/boards(page=${boards.number - 1}, keyword=${param.keyword}, userid=${param.userid})}">이전</a>
+            </li>
+            <li class="page-item" th:each="i : ${#numbers.sequence(0, boards.totalPages - 1)}"
+                th:classappend="${i == boards.number} ? 'active'">
+                <a class="page-link"
+                   th:href="@{/admin/boards(page=${i}, keyword=${param.keyword}, userid=${param.userid})}"
+                   th:text="${i + 1}">1</a>
+            </li>
+            <li class="page-item" th:classappend="${boards.last} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/admin/boards(page=${boards.number + 1}, keyword=${param.keyword}, userid=${param.userid})}">다음</a>
+            </li>
+        </ul>
+    </nav>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

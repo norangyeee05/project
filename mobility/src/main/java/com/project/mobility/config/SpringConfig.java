@@ -25,7 +25,7 @@ public class SpringConfig {
         //인가 방법 (http 요청에 의한)
         .authorizeHttpRequests(auth -> auth
                //모든 사용자 대한 접근 -> permitAll() | **: css/?/? 등 안에 있는 폴더까지 권한 부여됨
-              .requestMatchers("/", "/login", "/members/rester", "/css/**", "/js/**", "/images/**","/error","/favicon.ico")
+              .requestMatchers("/", "/login", "/members/register", "/css/**", "/js/**", "/images/**","/error","/favicon.ico")
               .permitAll()
                //최고관리자(ADMIN) 대한 접근 -> hsaRole("ADMIN")
               .requestMatchers("/admin/**").hasRole("ADMIN")

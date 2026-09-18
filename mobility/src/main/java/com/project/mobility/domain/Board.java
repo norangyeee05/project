@@ -37,6 +37,9 @@ public class Board {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
+    @Column
+    private LocalDateTime deletedAt;
+
     @PrePersist
     void prePersist() {
         createdAt = LocalDateTime.now();

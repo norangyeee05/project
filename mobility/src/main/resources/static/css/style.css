@@ -1,0 +1,56 @@
+@charset "UTF-8";
+
+body {
+    background-color: #f5f6f8;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main, .container {
+    flex: 1 0 auto;
+}
+
+.navbar-brand {
+    letter-spacing: 0.5px;
+}
+
+.card {
+    border: none;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.table {
+    background-color: #fff;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.table td, .table th {
+    vertical-align: middle;
+}
+
+.badge-role-admin {
+    background-color: #dc3545;
+}
+
+.badge-role-user {
+    background-color: #0d6efd;
+}
+
+.content-box {
+    white-space: pre-wrap;
+    word-break: break-word;
+    min-height: 200px;
+    line-height: 1.8;
+}
+
+.pagination {
+    margin-top: 1.5rem;
+}
+
+footer {
+    background-color: #fff;
+    flex-shrink: 0;
+}
